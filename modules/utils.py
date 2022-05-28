@@ -65,10 +65,9 @@ def join_datasets_year(path: str, years: list) -> pd.DataFrame:
             temp = pd.read_csv(i)
             temp['gender'] = 'M' if 'female' not in i else 'F'
             year = ''.join(filter(str.isdigit, i))
-            temp['year'] = f'20{year}'
+            temp['year'] = int('20' + year)
             csvs.append(temp)
 
-    print(csvs)
     return pd.concat(csvs)
 
 
