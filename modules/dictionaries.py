@@ -1,6 +1,6 @@
 from pprint import pprint
 from modules import utils
-
+import re
 import pandas as pd
 
 
@@ -24,21 +24,22 @@ def clean_up_players_dict(player_dict: dict, col_query: list) -> dict:
     - player_dict: diccionari amb el formato de l’apartat (a) players_dict
     - col_query: llista de tuples amb detalls sobre la información que cal simplificar
     """
-    # TODO:: Fix repetitions
-    """res = dict()
-    for (key, value) in player_dict.items():
-        for element in col_query:
-            value[element[0]] = set(value[element[0]])
-
-        res[key] = value
-
-    return res"""
-
     res = dict()
-    for ident, params in player_dict.items():
-        params[col_query[0][0]] = set(params[col_query[0][0]])
-        params[col_query[1][0]] = params[col_query[1][0]][:1]
-        res[ident] = params
+
+    for key, value in player_dict.items():
+        for el in col_query:
+            if el[1] == "del_rep":
+                seen = []
+                for i in value[el[0]]:
+                    i = re.sub('[\s+]', '', i)
+                    i = i.split(",")
+                    for j in i:
+                        if j not in seen:
+                            seen.append(j)
+                value[el[0]] = set(seen)
+            elif el[1] == "one":
+                value[el[0]] = value[el[0]][0]
+        res[key] = value
     return res
 
 
@@ -47,5 +48,6 @@ if __name__ == "__main__":
     df = utils.join_datasets_year('../data', [2016, 2017, 2018])
     test_dict = players_dict(df, [226328, 192476, 230566],
                              ["short_name", "overall", "potential", "player_positions", "year"])
+
     col_query = [("short_name", "del_rep"), ('potential', 'one')]
     pprint(clean_up_players_dict(test_dict, col_query))
