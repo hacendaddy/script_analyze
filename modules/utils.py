@@ -1,3 +1,4 @@
+"""This module merges csvs and adds columns."""
 import glob
 import datetime
 import os
@@ -36,14 +37,12 @@ def join_male_female(path: str, year: int) -> pd.DataFrame:
     """
     # TODO:: Change path way
     os.chdir(f'../{path}')
-    extension = 'csv'
-    year = get_small_year(year)
-    all_filenames = [i for i in glob.glob(f'*{year}.{extension}')]
+    all_filenames = [i for i in glob.glob(f'*{get_small_year(year)}.csv')]
     csvs = []
     for i in all_filenames:
         temp = pd.read_csv(i)
         temp['gender'] = 'M' if 'female' not in i else 'F'
-        temp['year'] = f'20{year}'
+        temp['year'] = int(f'20{year}')
         csvs.append(temp)
 
     return pd.concat(csvs)
@@ -68,7 +67,7 @@ def join_datasets_year(path: str, years: list) -> pd.DataFrame:
             temp = pd.read_csv(i)
             temp['gender'] = 'M' if 'female' not in i else 'F'
             year = ''.join(filter(str.isdigit, i))
-            temp['year'] = int('20' + year)
+            temp['year'] = int(f'20{year}')
             csvs.append(temp)
 
     return pd.concat(csvs)

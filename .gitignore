@@ -3,4 +3,6 @@ venv
 .idea
 modules/__pycache__
 __pycache__
+.devcontainer
+.DS_Store
 
