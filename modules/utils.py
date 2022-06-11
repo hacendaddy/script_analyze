@@ -22,8 +22,9 @@ def read_add_year_gender(filepath: str, gender: str, year: int) -> pd.DataFrame:
     - gender: 'M' o 'F' (segons les sigles de “Male” or “Female”)
     - year: Any al que corresponen les dades en format XXXX (per exemple, 2020)
     """
+    os.chdir('../')
     data_frame = pd.read_csv(filepath, low_memory=False)
-    data_frame['gender'] = 'M' if gender == 'Male' else 'F'
+    data_frame['gender'] = gender
     data_frame['year'] = year
     return data_frame
 
@@ -33,7 +34,8 @@ def join_male_female(path: str, year: int) -> pd.DataFrame:
     - path: ruta a la carpeta que conté les dades
     - year: any del que es volen llegir les dades, format XXXX (per exemple, 2020)
     """
-    os.chdir(path)
+    # TODO:: Change path way
+    os.chdir(f'../{path}')
     extension = 'csv'
     year = get_small_year(year)
     all_filenames = [i for i in glob.glob(f'*{year}.{extension}')]
@@ -52,7 +54,8 @@ def join_datasets_year(path: str, years: list) -> pd.DataFrame:
     - path: ruta a la carpeta que conté les dades
     - years: llista d’anys que es volen incloure en el dataframe, en format [XXXX,...]
     """
-    os.chdir(path)
+    # TODO:: Change path way
+    os.chdir(f'../{path}')
     extension = 'csv'
     all_filenames = []
     for year in years:
@@ -73,5 +76,5 @@ def join_datasets_year(path: str, years: list) -> pd.DataFrame:
 
 if __name__ == "__main__":
     print("This is utils module")
-    # join_male_female('data/', 2020)
+    # print(join_male_female('data', 2020).shape)
     # join_datasets_year('data/', [2020, 2021])

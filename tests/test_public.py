@@ -1,13 +1,6 @@
 # pylint: skip-file
 import os
 import unittest
-import pandas as pd
-
-from modules.bmi import calculate_bmi
-from modules.dictionaries import players_dict, clean_up_players_dict
-from modules.evolution import top_average_column
-from modules.statistics import find_max_col, find_rows_query
-from modules.utils import read_add_year_gender, join_male_female, join_datasets_year
 from testing_imports import *
 from HTMLTestRunner import HTMLTestRunner
 
