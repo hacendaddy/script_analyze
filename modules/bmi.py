@@ -1,5 +1,5 @@
 import pandas as pd
-import utils
+from modules import utils
 import matplotlib.pyplot as plt
 
 
@@ -11,7 +11,7 @@ def calculate_bmi(df: pd.DataFrame, gender: str, year: int, cols_to_return: list
     - cols_to_return: llista de columnes que cal retornar (sense columna BMI)
     """
     temp = df.loc[(df['gender'] == gender) & (df['year'] == year)]
-    temp['bmi'] = temp['weight_kg'] / (temp['height_cm']/100) ** 2
+    temp['bmi'] = temp['weight_kg'] / (temp['height_cm'] / 100) ** 2
     cols_to_return.append('bmi')
     return temp[cols_to_return]
 
@@ -28,4 +28,3 @@ if __name__ == "__main__":
     plt.bar(prep_data["club_flag_url"], prep_data["bmi"])
     plt.xticks(rotation=90)
     plt.show()
-

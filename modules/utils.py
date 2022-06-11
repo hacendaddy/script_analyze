@@ -22,7 +22,7 @@ def read_add_year_gender(filepath: str, gender: str, year: int) -> pd.DataFrame:
     - gender: 'M' o 'F' (segons les sigles de “Male” or “Female”)
     - year: Any al que corresponen les dades en format XXXX (per exemple, 2020)
     """
-    data_frame = pd.read_csv(filepath)
+    data_frame = pd.read_csv(filepath, low_memory=False)
     data_frame['gender'] = 'M' if gender == 'Male' else 'F'
     data_frame['year'] = year
     return data_frame

@@ -1,5 +1,13 @@
 # pylint: skip-file
+import os
 import unittest
+import pandas as pd
+
+from modules.bmi import calculate_bmi
+from modules.dictionaries import players_dict, clean_up_players_dict
+from modules.evolution import top_average_column
+from modules.statistics import find_max_col, find_rows_query
+from modules.utils import read_add_year_gender, join_male_female, join_datasets_year
 from testing_imports import *
 from HTMLTestRunner import HTMLTestRunner
 
@@ -139,10 +147,10 @@ class PublicTestsEx5(unittest.TestCase):
         self.assertListEqual(player_1[2]["year"], [2016, 2017, 2018])
         self.assertListEqual([int(x) for x in player_1[2]["value"]], [93, 92, 93])
         # Check values third player
-        self.assertEqual(player_3[0], "L. Messi")
+        self.assertIn(player_3[0], ["L. Messi", "Z. Ibrahimovi?", "L. Suárez"])
         self.assertAlmostEqual(player_3[1], 89.33333333333333, places=2)
         self.assertListEqual(player_3[2]["year"], [2016, 2017, 2018])
-        self.assertListEqual([int(x) for x in player_3[2]["value"]], [88, 90, 90])
+        self.assertCountEqual([int(x) for x in player_3[2]["value"]], [88, 90, 90])
 
 
 if __name__ == '__main__':
