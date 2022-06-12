@@ -81,30 +81,3 @@ if __name__ == "__main__":
     plt.xlabel("Any")
     plt.legend()
     plt.show()
-
-    print("-" * 50)
-    print('Exercici 6:')
-    # TODO:: DO
-
-    # Any d'estudi
-    ANY_ESTUDI = 2022
-
-    # Obtenció registres per pantalla
-    NUM_REGISTRES = 10
-
-    # Obtenim les dades de jugadors
-    print('Carregant dades...')
-    DF = join_male_female("data", ANY_ESTUDI)
-    print('Dades carregades')
-    print('')
-
-    # Seleccionem quines columnes volem analitzar i en filtrem el dataframe
-    NUMBER_COLUMNS = [2, 4, 9, 28, 29, *range(37, 78)]
-    DF_COLUMNS = list(DF.columns[i] for i in NUMBER_COLUMNS)
-    DF_COLUMNS.append('gender')
-    DF_FILT = DF[DF_COLUMNS]
-
-    # Agrupem els jugadors segons la seva posició. Poden estar en més d'un grup
-    CM_PLAYERS = DF_FILT[DF_FILT['player_positions'].str.contains("CM")]
-    RB_PLAYERS = DF_FILT[DF_FILT['player_positions'].str.contains("RB")]
-    LB_PLAYERS = DF_FILT[DF_FILT['player_positions'].str.contains("LB")]
