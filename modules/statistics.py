@@ -10,8 +10,8 @@ def find_max_col(data_frame: pd.DataFrame, filter_col: str,
     - filter_col: nom de la columna de la que volem saber el màxim
     - cols_to_return: llista de columnes que cal retornar
     """
-    max_value = data_frame.loc[data_frame[filter_col].idxmax()]
-    return max_value[cols_to_return]
+    max_value = data_frame[filter_col].max()
+    return data_frame.loc[data_frame[filter_col] == max_value][cols_to_return]
 
 
 def find_rows_query(data_frame: pd.DataFrame, query: tuple,
