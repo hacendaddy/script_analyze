@@ -1,5 +1,6 @@
 """This module finds cols based on conditions."""
 import pandas as pd
+import numpy as np
 
 
 def find_max_col(data_frame: pd.DataFrame, filter_col: str,
@@ -20,23 +21,26 @@ def find_rows_query(data_frame: pd.DataFrame, query: tuple,
     - query: tupla que conté la query
     - cols_to_return: llista de columnes que cal retornar
     """
-    # print(query[0][0], "==", query[1][0])
-    # print(query[0][1], "==", query[1][1][0])
-    # print(query[0][1], "==", query[1][1][1])'''
+    # Columnes numèriques
+    numeric_columns = data_frame.select_dtypes(include=[np.number])
 
-    # TODO:: Finish this
+    # Preview de la query
+    # (["league_name", "weight_kg"], ["English Premier League", (60, 70)])
+
+    # Transformació a objecte [(key, value), (key, value)]
+    new_object = list(zip(query[0], query[1]))
+
+    # Loop principal assignació i filtratge
+    for (col, val) in new_object:
+        # Si la columna es numérica
+        if col in numeric_columns:
+            # No fem servir type per el pylint
+            data_frame = data_frame[data_frame[col].between(val[0], val[1])]
+        else:
+            data_frame = data_frame[data_frame[col] == val]
+
+    return data_frame[cols_to_return]
 
 
 if __name__ == "__main__":
     print("This is statistics module")
-    DATA_FRAME = pd.read_csv('data/players_20.csv')
-    COLS_TO_RETURN = ["sofifa_id", "player_url", "short_name", "long_name"]
-    '''
-    filter_col = "weight_kg"
-    find_max_col(df, filter_col, COLS_TO_RETURN)
-    '''
-    # Under construction
-    # 1a, 2a - 1b, 2b
-    QUERY = (["league_name", "weight_kg"], [
-        "English Premier League", (60, 70)])
-    find_rows_query(DATA_FRAME, QUERY, COLS_TO_RETURN)

@@ -155,5 +155,5 @@ if __name__ == '__main__':
     suite.addTest(unittest.makeSuite(PublicTestsEx5))
     runner = HTMLTestRunner(log=True, verbosity=2, output='reports',
                             title='PAC4', description='PAC4 public tests',
-                            report_name='Public tests')
+                            report_name='Public tests', open_in_browser=True)
     runner.run(suite)

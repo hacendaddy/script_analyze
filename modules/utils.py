@@ -23,7 +23,6 @@ def read_add_year_gender(filepath: str, gender: str, year: int) -> pd.DataFrame:
     - gender: 'M' o 'F' (segons les sigles de “Male” or “Female”)
     - year: Any al que corresponen les dades en format XXXX (per exemple, 2020)
     """
-    os.chdir('../')
     data_frame = pd.read_csv(filepath, low_memory=False)
     data_frame['gender'] = gender
     data_frame['year'] = year
@@ -35,12 +34,12 @@ def join_male_female(path: str, year: int) -> pd.DataFrame:
     - path: ruta a la carpeta que conté les dades
     - year: any del que es volen llegir les dades, format XXXX (per exemple, 2020)
     """
-    # TODO:: Change path way
-    os.chdir(f'../{path}')
-    all_filenames = [i for i in glob.glob(f'*{get_small_year(year)}.csv')]
+    new_path = os.path.join(f"{path}", f'*{get_small_year(year)}.csv')
+
+    all_filenames = [i for i in glob.glob(new_path)]
     csvs = []
     for i in all_filenames:
-        temp = pd.read_csv(i)
+        temp = pd.read_csv(i, low_memory=False)
         temp['gender'] = 'M' if 'female' not in i else 'F'
         temp['year'] = int(f'20{year}')
         csvs.append(temp)
@@ -53,18 +52,16 @@ def join_datasets_year(path: str, years: list) -> pd.DataFrame:
     - path: ruta a la carpeta que conté les dades
     - years: llista d’anys que es volen incloure en el dataframe, en format [XXXX,...]
     """
-    # TODO:: Change path way
-    os.chdir(f'../{path}')
-    extension = 'csv'
     all_filenames = []
     for year in years:
         year = get_small_year(year)
-        all_filenames.append(list(glob.glob(f'*{year}.{extension}')))
+        new_path = os.path.join(f"{path}", f'*{year}.csv')
+        all_filenames.append(list(glob.glob(new_path)))
 
     csvs = []
     for fi_name in all_filenames:
         for i in fi_name:
-            temp = pd.read_csv(i)
+            temp = pd.read_csv(i, low_memory=False)
             temp['gender'] = 'M' if 'female' not in i else 'F'
             year = ''.join(filter(str.isdigit, i))
             temp['year'] = int(f'20{year}')

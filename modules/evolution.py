@@ -16,12 +16,12 @@ def top_average_column(data: dict, identifier: str, col: str, threshold: int) ->
         if threshold and not isnan(value[col][0]):
             mean_values = sum(value[col]) / len(value[col])
             results.append(
-                (list(value[identifier])[0] if isinstance(value[identifier]) == set
+                (list(value[identifier])[0] if isinstance(value[identifier], set)
                  else value[identifier], mean_values,
                  {'value': value[col], 'year': value['year']}))
 
     highest_numbers = sorted(
-        results, key=lambda element: (element[1]))[-threshold:]
+        results, key=lambda element: (element[1]), reverse=True)
     return highest_numbers
 
 
