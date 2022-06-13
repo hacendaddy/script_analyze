@@ -1,7 +1,5 @@
 """This module calculates the BMI from FIFA Players."""
 import pandas as pd
-import matplotlib.pyplot as plt
-from modules import utils
 
 
 def calculate_bmi(data_frame: pd.DataFrame, gender: str, year: int,
