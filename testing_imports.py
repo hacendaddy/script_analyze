@@ -12,3 +12,5 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 from pprint import pprint
+import numpy as np
+import matplotlib

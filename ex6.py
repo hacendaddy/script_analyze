@@ -47,3 +47,8 @@ if __name__ == "__main__":
     lb = random.choice(lb_players)
     cb1 = random.choice(cb_players)
     cb2 = random.choice(cb_players)
+
+    print("Dreta", rb)
+    print("Esquerra", lb)
+    print("Central 1", cb1)
+    print("Central 2", cb2)
