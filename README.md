@@ -64,6 +64,18 @@
 
  </tr>
 </table>
+<hr>
+
+## Testing  <br>
+Public Tests: <code>python3 -m tests.test_public</code> <br>
+Private Tests: <code>python3 -m tests.test_custom</code> <br>
+
+## Style  <br>
+Per obtenir una nota d'estil, necesitem un Linter.
+* <code>sudo apt install pylint</code>
+* Executem el linter posicionan-nos al directori que volguem: <code>cd modules</code>
+* <code>pylint *.py</code>
+
 
 
 
