@@ -1,3 +1,4 @@
+"""Main exercice 1-5"""
 from testing_imports import *
 
 
@@ -56,16 +57,16 @@ if __name__ == "__main__":
     DATA = calculate_bmi(DATA_FRAME, 'M', 2022, ["sofifa_id", "club_flag_url"])
     PREP_DATA = DATA.groupby(DATA['club_flag_url'].str.slice(
         29, -4))['BMI'].max().reset_index()
-    c = ['red', 'yellow', 'black', 'blue', 'orange']
+    COLOR = ['red', 'yellow', 'black', 'blue', 'orange']
 
     # Plot FIFA per país
     plt.subplot(1, 2, 1)  # row 1, col 2 index 1
     plt.bar(PREP_DATA["club_flag_url"],
             PREP_DATA["BMI"], color="pink", alpha=0.25)
-    plt.axhline(y=18.5, color=c[0], linestyle='-')
-    plt.axhline(y=24, color=c[1], linestyle='-')
-    plt.axhline(y=25, color=c[2], linestyle='-')
-    plt.axhline(y=30, color=c[3], linestyle='-')
+    plt.axhline(y=18.5, color=COLOR[0], linestyle='-')
+    plt.axhline(y=24, color=COLOR[1], linestyle='-')
+    plt.axhline(y=25, color=COLOR[2], linestyle='-')
+    plt.axhline(y=30, color=COLOR[3], linestyle='-')
     plt.title("Dades FIFA BMI")
     plt.xticks(rotation=90)
 
@@ -74,24 +75,24 @@ if __name__ == "__main__":
     INE = INE.loc[INE["Adult body mass index"] != "TOTAL"]
     INE["mass_group"] = INE['Adult body mass index'].str.replace(
         r"\([^()]*\)", '', regex=True).str.strip()
-    plt.bar(INE["mass_group"], INE["Total"], color=c)
+    plt.bar(INE["mass_group"], INE["Total"], color=COLOR)
 
-    colors = {
+    COLORS = {
         'Underweight < 18.5': 'red',
         'Normal weight [18.5, 25)': 'yellow',
         'Overweight [25, 30)': 'black',
         'Obese ≥ 30': 'blue'
     }
-    labels = list(colors.keys())
-    handles = [plt.Rectangle((0, 0), 1, 1, color=colors[label])
-               for label in labels]
-    plt.legend(handles, labels)
+    LABELS = list(COLORS.keys())
+    HANDLES = [plt.Rectangle((0, 0), 1, 1, color=COLORS[label])
+               for label in LABELS]
+    plt.legend(HANDLES, LABELS)
 
     plt.title("Dades població (H/D) BMI 2020 Espanya per categories")
     plt.xticks(rotation=45)
 
-    fig = plt.gcf()
-    fig.set_size_inches(18.5, 10.5)
+    FIG = plt.gcf()
+    FIG.set_size_inches(18.5, 10.5)
 
     plt.show()
 
@@ -138,52 +139,52 @@ if __name__ == "__main__":
     pprint(AVERAGE_RESULT[:4])
 
     ################
-    labels = ["2016", "2017", "2018", "2019", "2020", "2021", "2022"]
+    LABELS = ["2016", "2017", "2018", "2019", "2020", "2021", "2022"]
 
     barWidth = 0.25
     N = 4
 
-    player_names = []
+    PLAYER_NAMES = []
     for v in AVERAGE_RESULT[:N]:
-        player_names.append(v[0])
+        PLAYER_NAMES.append(v[0])
 
-    player1 = (fill_empty_slots(
-        AVERAGE_RESULT[:N][0][2]['value'], len(labels)))
-    player2 = (fill_empty_slots(
-        AVERAGE_RESULT[:N][1][2]['value'], len(labels)))
-    player3 = (fill_empty_slots(
-        AVERAGE_RESULT[:N][2][2]['value'], len(labels)))
-    player4 = (fill_empty_slots(
-        AVERAGE_RESULT[:N][3][2]['value'], len(labels)))
+    PLAYER1 = (fill_empty_slots(
+        AVERAGE_RESULT[:N][0][2]['value'], len(LABELS)))
+    PLAYER2 = (fill_empty_slots(
+        AVERAGE_RESULT[:N][1][2]['value'], len(LABELS)))
+    PLAYER3 = (fill_empty_slots(
+        AVERAGE_RESULT[:N][2][2]['value'], len(LABELS)))
+    PLAYER4 = (fill_empty_slots(
+        AVERAGE_RESULT[:N][3][2]['value'], len(LABELS)))
 
-    r1 = np.arange(len(player1))
-    r2 = [x + barWidth for x in r1]
-    r3 = [x + barWidth for x in r2]
-    r4 = [x + barWidth for x in r3]
+    R_1 = np.arange(len(PLAYER1))
+    R_2 = [x + barWidth for x in R_1]
+    R_3 = [x + barWidth for x in R_2]
+    R_4 = [x + barWidth for x in R_3]
 
-    fig, ax = plt.subplots(1, 1, figsize=(15, 7))
+    FIG, AX = plt.subplots(1, 1, figsize=(15, 7))
 
-    p1 = ax.bar(r1, player1, color='red', align='center',
-                width=barWidth, edgecolor='white', label=player_names[0])
-    p2 = ax.bar(r2, player2, color='green', align='center',
-                width=barWidth, edgecolor='white', label=player_names[1])
-    p3 = ax.bar(r3, player3, color='blue', align='center',
-                width=barWidth, edgecolor='white', label=player_names[2])
-    p4 = ax.bar(r4, player4, color='purple', align='center',
-                width=barWidth, edgecolor='white', label=player_names[3])
+    P_1 = AX.bar(R_1, PLAYER1, color='red', align='center',
+                 width=barWidth, edgecolor='white', label=PLAYER_NAMES[0])
+    P_2 = AX.bar(R_2, PLAYER2, color='green', align='center',
+                 width=barWidth, edgecolor='white', label=PLAYER_NAMES[1])
+    P_3 = AX.bar(R_3, PLAYER3, color='blue', align='center',
+                 width=barWidth, edgecolor='white', label=PLAYER_NAMES[2])
+    P_4 = AX.bar(R_4, PLAYER4, color='purple', align='center',
+                 width=barWidth, edgecolor='white', label=PLAYER_NAMES[3])
 
-    autolabel(p1)
-    autolabel(p2)
-    autolabel(p3)
-    autolabel(p4)
+    autolabel(P_1)
+    autolabel(P_2)
+    autolabel(P_3)
+    autolabel(P_4)
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
-    ax.set_title('Distribució anual de movement sprint speed')
+    AX.set_title('Distribució anual de movement sprint speed')
     plt.xlabel('Anys', fontweight='bold')
-    ax.set_ylabel('Movement sprint speed')
-    plt.xticks([r + barWidth for r in range(len(player1))], labels)
+    AX.set_ylabel('Movement sprint speed')
+    plt.xticks([r + barWidth for r in range(len(PLAYER1))], LABELS)
 
     # Create legend & Show graphic
-    ax.legend(loc=(1.04, 0))
+    AX.legend(loc=(1.04, 0))
     plt.subplots_adjust(right=0.8)
     plt.show()
