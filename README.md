@@ -76,7 +76,7 @@ Per obtenir una nota d'estil, necesitem un Linter.
 * Executem el linter posicionan-nos al directori que volguem: <code>cd modules</code>
 * <code>pylint *.py</code>
 
-REPO: https://github.com/paucamos/PAC4
+REPO: https://github.com/hacendaddy/PAC4
 
 ![1655050208063](https://user-images.githubusercontent.com/45793792/173430132-8cae5d1b-3db9-4ac8-8e69-a9fc8c585b67.jpg)
 
